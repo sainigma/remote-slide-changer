@@ -1,14 +1,60 @@
+@font-face{
+  font-family: "pixel";
+  src: url("./assets/PixelNES.otf") format("opentype");
+}
+p{
+  padding-left: 2em;
+  padding-right: 2em;
+  margin: 0;
+  font-size: 2em;
+  font-family: 'pixel';
+}
+body{
+  overflow: hidden;
+  padding:0;
+  margin: 0;
+  background-color: rgb(139, 60, 36);;
+}
+.connectfield{
+  margin: 0;
+  display:block;
+  background-image: url('./assets/field.png');
+  background-size: contain;
+  width: 100%;
+  height: calc(100% / 3);
+}
+.connectfield input{
+  position: absolute;
+  left:10%;
+  top: 0;
+  font-size: 3em;
+  font-family: 'pixel';
+  width: 80%;
+  height: calc(100% / 3);
+  background: transparent;
+  border: none;
+  text-align: center;
+}
 .connector{
+  background-color: rgb(120, 151, 69);
   position: relative;
   display: block;
-  background-color: red;
   width: 600px;
   height: 600px;
+  margin-left: calc(50% - 300px);
 }
 .keypad{
+  background-color: rgb(120, 151, 69);
   position: relative;
   display: none;
-  background-color: black;
+  width: 600px;
+  height: 600px;
+  margin-left: calc(50% - 300px);
+}
+.tail{
+  display: block;
+  background-color: rgb(120, 151, 69);
+  margin-left: calc(50% - 300px);
   width: 600px;
   height: 600px;
 }
@@ -17,32 +63,44 @@
   display: block;
   width: calc(100% / 3);
   height: calc(100% / 3);
-  background-color: green;
   margin:0;
+  background-repeat: no-repeat;
+  background-size: contain;
   cursor: pointer;
 }
-.bigbuttontop, .bigbuttonbottom{
+.bigbuttontop, .bigbuttonbottom, .bigbuttonspace{
   left:calc(100% / 3);
 }
-.bigbuttonleft, .bigbuttonright{
+.bigbuttonleft, .bigbuttonright, .bigbuttonspace{
   top:calc(100% / 3);
 }
 .bigbuttonleft{
+  background-image: url('./assets/arrowleft.png');
   left: 0;
 }
 .bigbuttonright{
+  background-image: url('./assets/arrowright.png');
   right: 0;
 }
 .bigbuttontop{
+  background-image: url('./assets/arrowup.png');
   top: 0;
 }
 .buttonbottom{
+  background-image: url('./assets/arrowdown.png');
   bottom: 0;
+}
+.bigbuttonspace{
+  background-image: url('./assets/space.png');
+}
+.bigbutton:active{
+  filter:brightness(0.5);
+  filter: drop-shadow(0px 16px 20px black);
 }
 .bigbuttontop:active{
   top: 0.5em;
 }
-.bigbuttonleft:active, .bigbuttonright:active{
+.bigbuttonleft:active, .bigbuttonright:active, .bigbuttonspace:active{
   top:calc(100% / 3 + 0.5em);
 }
 .buttonbottom:active{
@@ -52,9 +110,13 @@
   position: absolute;
   margin: 0;
   left: 0;
-  background-color: green;
+  background-image: url('./assets/connect.png');
+  background-size: contain;
   width: 100%;
-  height: 10em;
+  height: calc(100% / 3);
   text-align: center;
   cursor: pointer;
+}
+.buttonfilter{
+  mask-size: contain;
 }

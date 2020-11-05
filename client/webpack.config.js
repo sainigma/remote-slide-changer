@@ -38,17 +38,25 @@ let config = {
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.css$/i,
         use:[
-          { loader: 'style-loader', options: {injectType: 'styleTag'}}, 'css-loader',
+          { loader: 'style-loader', options: {injectType: 'styleTag'}},
+          { loader: 'css-loader', options: { 
+            url: (url, path)=>{
+              if(url.includes('.png') || url.includes('.otf')){
+                return false
+                }
+                return true
+              }
+            }
+          },
         ]
-        //loaders: ['style-loader','css-loader'],
       },
       {
         test: /\.js$/,
         loader: 'string-replace-loader',
         options: {
-          search: 'ws://localhost:8080',
+          search: 'ws://localhost:2048',
           replace: dotenvGet('WSOCK'),
           flags: 'i'
         }
@@ -60,10 +68,11 @@ let config = {
       template: './public/index.html',
       filename: './index.html'
     }),
-    /*
-    new CopyWebPackPlugin([
-      {from:'./public/assets',to:'assets'}
-    ])*/
+    new CopyWebPackPlugin({
+      patterns: [
+        {from:'./public/assets',to:'assets'}
+      ]
+    })
   ],
   stats:{
     children:false
