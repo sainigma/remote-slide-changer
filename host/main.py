@@ -15,6 +15,7 @@ async def register():
         await websocket.send(json.dumps(transmission))
         response = await websocket.recv()
         if( response ):
+          print(response)
           config['id'] = response
           config['active'] = True
       else:
