@@ -1,10 +1,19 @@
 #!/usr/bin/env python
 
 import asyncio
+import keyboard
 import websockets
 import json
+import time
+
 uri = 'ws://localhost:2048'
 config = {}
+keyboardactions = {}
+keyboardactions['up'] = 'up'
+keyboardactions['down'] = 'down'
+keyboardactions['left'] = 'left'
+keyboardactions['right'] = 'right'
+keyboardactions['space'] = 'space'
 
 async def register():
   async with websockets.connect(uri) as websocket:
@@ -39,12 +48,17 @@ def init():
     asyncio.get_event_loop().run_until_complete(register())
   except:
     print('failed to connect to server')
+    print('retrying in 10 seconds..')
+    time.sleep(10)
+    init()
 
 async def listen(websocket):
   print('listening')
   while(True):
     response = await websocket.recv()
     if( response ):
+      if( response in keyboardactions ):
+        keyboard.press_and_release(keyboardactions[response])
       print( response )
     else:
       print('null')

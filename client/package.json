@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "asd": "webpack serve",
-    "start": "webpack-dev-server --mode=development",
-    "build": "webpack -p --mode=production",
+    "start": "webpack serve",
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kari Suominen",
