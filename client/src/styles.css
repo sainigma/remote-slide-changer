@@ -58,7 +58,7 @@ body{
   width: 600px;
   height: 600px;
 }
-.bigbutton{
+.bigbutton, .idfield, .hostfield{
   position: absolute;
   display: block;
   width: calc(100% / 3);
@@ -67,6 +67,25 @@ body{
   background-repeat: no-repeat;
   background-size: contain;
   cursor: pointer;
+}
+.idfield{
+  top:0;
+  left:1em;
+  cursor: auto;
+}
+.hostfield{
+  top: 0;
+  right: 0;
+  cursor: auto;
+}
+.idfield p{
+  padding:0.25em;
+  word-wrap: break-word;
+}
+.hostfield p{
+  padding:0.25em;
+  padding-left: 1em;
+  word-wrap: break-word;
 }
 .bigbuttontop, .bigbuttonbottom, .bigbuttonspace{
   left:calc(100% / 3);

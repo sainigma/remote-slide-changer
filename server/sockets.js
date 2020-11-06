@@ -2,6 +2,7 @@ const WebSocket = require('ws')
 const app = require('express')
 const crypto = require('crypto')
 let hosts = {}
+let clients = {}
 let config
 
 const hostActions = async(socket, data) => {
@@ -50,6 +51,11 @@ const clientActions = (socket, data) => {
         console.log(data.groupid)
         socket.groupid = data.groupid
         socket.send('handshaked')
+        let hostsConnected = 0
+        if( data.groupid in hosts ){
+          hostsConnected = hosts[data.groupid].length
+        }
+        socket.send(JSON.stringify({hosts:hostsConnected}))
       }
       break
     case 'up':

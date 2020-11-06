@@ -13,8 +13,19 @@ export class ServerComms{
   setConnector(connector){
     this.connector = connector
   }
+  propagateId(){
+    const elements = document.getElementsByName('groupid')
+    if( elements.length > 0 ){
+      elements.forEach((element)=>{
+        element.innerHTML = this.groupid
+      })
+    }
+  }
+  getId(){
+    return this.groupid
+  }
   connect(groupid){
-    if( groupid !== undefined ){
+    if( groupid !== undefined && groupid.length >= 3 ){
       this.socket = undefined
       this.handshaked = false
       this.groupid = groupid
@@ -35,6 +46,7 @@ export class ServerComms{
       this.socket.onmessage = (data) => {
         switch(data.data){
           case 'handshaked':
+            this.propagateId()
             this.ui.style.display = 'block'
             this.connector.style.display = 'none'
             this.handshaked = true
@@ -42,6 +54,11 @@ export class ServerComms{
           case 'disable':
             this.disable()
             break
+          default:
+            let pdata = JSON.parse(data.data)
+            if( 'hosts' in pdata ){
+              console.log(pdata)
+            }
         }
       }
     }else return false
