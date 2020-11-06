@@ -9,9 +9,13 @@ const init = () => {
     key: fs.readFileSync(config.privateKey),
     cert: fs.readFileSync(config.certificate)
   }
-  //const httpsServer = https.createServer(credentials, sockets.app)
-  const httpsServer = https.createServer(sockets.app)
-  httpsServer.listen(config.port)
-  sockets.init(httpsServer, config)
+  let server
+  if( config.wss ){
+    server = https.createServer(credentials, sockets.app)
+  }else{
+    server = https.createServer(sockets.app)
+  }
+  server.listen(config.port)
+  sockets.init(server, config)
 }
 init()

@@ -1,3 +1,9 @@
+*.png~
+*.kra
+*.kra~
+*.ttf
+*.otf
+*.gal
 # Logs
 logs
 *.log
