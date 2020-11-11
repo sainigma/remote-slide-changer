@@ -6,8 +6,8 @@ import websockets
 import json
 import time
 
-#uri = 'wss://1030321.xyz:2048'
-uri = 'ws://localhost:2048'
+uri = 'wss://1030321.xyz:2048'
+#uri = 'ws://localhost:2048'
 config = {}
 keyboardactions = {}
 keyboardactions['up'] = 'up'

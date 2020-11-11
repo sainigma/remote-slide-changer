@@ -2,6 +2,15 @@
   font-family: "pixel";
   src: url("./assets/PixelNES.otf") format("opentype");
 }
+body{
+  overflow: hidden;
+  padding:0;
+  margin: 0;
+  background-color: rgb(139, 60, 36);;
+}
+#container{
+  overflow: hidden;
+}
 p{
   padding-left: 2em;
   padding-right: 2em;
@@ -9,17 +18,13 @@ p{
   font-size: 2em;
   font-family: 'pixel';
 }
-body{
-  overflow: hidden;
-  padding:0;
-  margin: 0;
-  background-color: rgb(139, 60, 36);;
-}
+
 .connectfield{
   margin: 0;
   display:block;
   background-image: url('./assets/field.png');
-  background-size: contain;
+  background-size: cover;
+  background-repeat: no-repeat;
   width: 100%;
   height: calc(100% / 3);
 }
@@ -51,7 +56,7 @@ body{
   height: 600px;
   margin-left: calc(50% - 300px);
 }
-.tail{
+#tail{
   display: block;
   background-color: rgb(120, 151, 69);
   margin-left: calc(50% - 300px);
@@ -131,11 +136,16 @@ body{
   left: 0;
   background-image: url('./assets/connect.png');
   background-size: contain;
+  background-repeat: no-repeat;
   width: 100%;
   height: calc(100% / 3);
   text-align: center;
   cursor: pointer;
 }
-.buttonfilter{
-  mask-size: contain;
+#license{
+  position: absolute;
+  font-family: Arial, Helvetica, sans-serif;
+  opacity: 0.6;
+  bottom:0.5em;
+  margin-left: calc(50% - 300px + 1em);
 }
