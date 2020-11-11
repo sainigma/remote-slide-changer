@@ -25,11 +25,11 @@ const CreateKeypad = (parent) => {
   container.className = 'keypad'
   CreateButton(container, 'idfield', undefined, `<p style="font-size:1.5em; padding-top:1em">Connected to:</p><p name='groupid'></p>`)
   CreateButton(container, 'bigbutton bigbuttontop buttonfilter', ()=>{comms.send('up')})
-  CreateButton(container, 'hostfield', undefined, `<p style="font-size:1.5em; padding-top:1em">Active hosts:</p><p name='hostsconnected'>0</p>`)
+  CreateButton(container, 'hostfield', undefined, `<p style="font-size:1.5em; padding-top:1em">Active hosts:</p><p name='hostsconnected'>-</p>`)
   CreateButton(container, 'bigbutton bigbuttonleft buttonfilter', ()=>{comms.send('left')})
   CreateButton(container, 'bigbutton bigbuttonright buttonfilter', ()=>{comms.send('right')})
   CreateButton(container, 'bigbutton bigbuttonbottom buttonbottom buttonfilter', ()=>{comms.send('down')})
-  CreateButton(container, 'bigbutton bigbuttonspace buttonfilter', ()=>{comms.send('down')})
+  CreateButton(container, 'bigbutton bigbuttonspace buttonfilter', ()=>{comms.send('space')})
   parent.appendChild(container)
   return container
 }

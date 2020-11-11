@@ -5,19 +5,40 @@ let hosts = {}
 let clients = {}
 let config
 
-const hostActions = async(socket, data) => {
-  const generateID = async(length) => {
-    if( length === undefined ){
-      length = 8
-    }
-    return crypto.randomBytes(length).toString('hex')
+const generateID = async(length) => {
+  if( length === undefined ){
+    length = 8
   }
+  return crypto.randomBytes(length).toString('hex')
+}
+
+const appendToSocketGroup = async(socket, group, groupidentifier, role) => {
+  if( !(groupidentifier in group) ){
+    group[groupidentifier] = {}
+  }
+  const id = await(generateID(20))
+  socket.id = id
+  socket.groupid = groupidentifier
+  socket.role = role
+  group[groupidentifier][id] = socket
+}
+
+const removeFromSocketGroup = async(socket, group) => {
+  delete group[socket.groupid][socket.id]
+}
+
+const updateHostCountToClients = async(groupidentifier) => {
+  if( groupidentifier in clients ){
+    Object.keys(clients[groupidentifier]).forEach((key)=>{
+      clients[groupidentifier][key].send(JSON.stringify({hosts:Object.keys(hosts[groupidentifier]).length}))
+    })
+  }
+}
+
+const hostActions = async(socket, data) => {
   const appendHost = async(groupidentifier) => {
-    if( !(groupidentifier in hosts) ){
-      hosts[groupidentifier] = {}
-    }
-    const socketid = await generateID(20)
-    hosts[groupidentifier][socketid] = socket
+    await appendToSocketGroup(socket, hosts, groupidentifier,'host')
+    updateHostCountToClients(groupidentifier)
   }
 
   switch(data.type){
@@ -45,17 +66,19 @@ const transmit = (groupid, action) => {
 }
 
 const clientActions = (socket, data) => {
+  const appendClient = async(groupidentifier) => {
+    await appendToSocketGroup(socket, clients, groupidentifier, 'client')
+  }
   switch(data.action){
     case 'handshake':
       if( data.groupid ){
-        console.log(data.groupid)
-        socket.groupid = data.groupid
         socket.send('handshaked')
         let hostsConnected = 0
         if( data.groupid in hosts ){
-          hostsConnected = hosts[data.groupid].length
+          hostsConnected = Object.keys(hosts[data.groupid]).length
         }
         socket.send(JSON.stringify({hosts:hostsConnected}))
+        appendClient(data.groupid)
       }
       break
     case 'up':
@@ -64,7 +87,6 @@ const clientActions = (socket, data) => {
     case 'right':
     case 'space':
       if( socket.groupid !== undefined ){
-        console.log(data.action)
         transmit( socket.groupid, data.action )
       }else{
         socket.send('disable')
@@ -75,7 +97,6 @@ const clientActions = (socket, data) => {
 
 const initSocket = (socket) => {
   socket.on('message', (data)=>{
-    console.log('incoming')
     if( data !== undefined ){
       ok = true
       try{
@@ -94,6 +115,17 @@ const initSocket = (socket) => {
         socket.send('unhandled connection')
       }
     }
+  })
+  socket.on('close', ()=>{
+    if('role' in socket){
+      if( socket.role === 'client' ){
+        removeFromSocketGroup(socket, clients)
+      }else if( socket.role === 'host' ){
+        removeFromSocketGroup(socket, hosts)
+        updateHostCountToClients(socket.groupid)
+      }
+    }
+    console.log(`closing ${socket.role} ${socket.id} from group ${socket.groupid}`)
   })
 }
 

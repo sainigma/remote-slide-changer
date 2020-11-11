@@ -13,11 +13,11 @@ export class ServerComms{
   setConnector(connector){
     this.connector = connector
   }
-  propagateId(){
-    const elements = document.getElementsByName('groupid')
+  propagate(name, content){
+    const elements = document.getElementsByName(name)
     if( elements.length > 0 ){
       elements.forEach((element)=>{
-        element.innerHTML = this.groupid
+        element.innerHTML = content
       })
     }
   }
@@ -46,7 +46,7 @@ export class ServerComms{
       this.socket.onmessage = (data) => {
         switch(data.data){
           case 'handshaked':
-            this.propagateId()
+            this.propagate('groupid',this.groupid)
             this.ui.style.display = 'block'
             this.connector.style.display = 'none'
             this.handshaked = true
@@ -58,6 +58,7 @@ export class ServerComms{
             let pdata = JSON.parse(data.data)
             if( 'hosts' in pdata ){
               console.log(pdata)
+              this.propagate('hostsconnected',pdata.hosts)
             }
         }
       }

@@ -6,6 +6,7 @@ import websockets
 import json
 import time
 
+#uri = 'wss://1030321.xyz:2048'
 uri = 'ws://localhost:2048'
 config = {}
 keyboardactions = {}
@@ -47,9 +48,10 @@ def init():
   try:
     asyncio.get_event_loop().run_until_complete(register())
   except:
+    timeout = 5
     print('failed to connect to server')
-    print('retrying in 10 seconds..')
-    time.sleep(10)
+    print('retrying in ',timeout,' seconds..')
+    time.sleep(timeout)
     init()
 
 async def listen(websocket):
