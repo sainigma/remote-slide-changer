@@ -1,6 +1,7 @@
 const fs = require('fs')
 const sockets = require('./sockets.js')
-const https = require('http')
+const http = require('http')
+const https = require('https')
 
 const config = JSON.parse(fs.readFileSync('.env'))
 
@@ -13,7 +14,7 @@ const init = () => {
   if( config.wss ){
     server = https.createServer(credentials, sockets.app)
   }else{
-    server = https.createServer(sockets.app)
+    server = http.createServer(sockets.app)
   }
   server.listen(config.port)
   sockets.init(server, config)
