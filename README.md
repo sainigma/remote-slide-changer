@@ -4,8 +4,6 @@ A utility for zoom meetings for cases where there are more than one speaker shar
 
 ## Usage
 ### client
-![login](/docs/ui1.png)
-![main ui](/docs/ui2.png)
 ### host
 To use the host script, run it with either:
 
