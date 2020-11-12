@@ -3,23 +3,29 @@
 A utility for zoom meetings for cases where there are more than one speaker sharing the same slides
 
 ## Usage
-### client
 ### host
 To use the host script, run it with either:
 
-    python3 remoteSlideChanger.py
+    sudo python3 remoteSlideChanger.py
     
    or if you want to assign your groupid without the hassle of cli-ui:
     
-    python3 remoteSlideChanger.py replace-me-with-your-host-identifier
+    sudo python3 remoteSlideChanger.py replace-me-with-your-host-identifier
 
 The script will now receive keypresses from clients connected to the server with the same identifier. To stop execution, use ctrl+c.
+
+Root access is required for the script because of the keyboard module
+
+
+### client
+![](/docs/ui2.png)
+After setting up the host, connect to the server using the same identifier as with the host. Then use the keypad to activate keypresses on the host/hosts. 
 
 ## Minimum installation
 
 For minimal installation, only the [host script](/host/remoteSlideChanger.py) has to be downloaded. Python3 and a few dependencies are necessary, install them with:
 
-    pip3 install asyncio websockets keyboard
+    sudo pip3 install asyncio websockets keyboard
 
 Then run the script as was defined in the usage section.
 
