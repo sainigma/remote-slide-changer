@@ -2,6 +2,9 @@
 # remote-slide-changer
 A utility for zoom meetings for cases where there are more than one speaker sharing the same slides
 
+![](/docs/ui2.png)
+
+
 ## Usage
 ### host
 To use the host script, run it with either:
@@ -18,7 +21,6 @@ Root access is required for the script because of the keyboard module
 
 
 ### client
-![](/docs/ui2.png)
 After setting up the host, connect to the server using the same identifier as with the host. Then use the keypad to activate keypresses on the host/hosts. 
 
 ## Minimum installation
