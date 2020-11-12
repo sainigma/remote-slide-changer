@@ -1,9 +1,11 @@
 
+
 # remote-slide-changer
-A utility for zoom meetings for cases where there are more than one speaker sharing the same slides
+A utility for ~~zoom meetings for cases where there are more than one speaker sharing the same slides~~ sending a simple set of keypresses (arrow keys and space) over the internet. Could be used as a slide changer in presentations, or as a tool to synchronize movie watching remotely with friends.
 
 ![](/docs/ui2.png)
 
+It follows a client-server-host structure, where server propagates messages from clients to hosts using group identifiers, and the host actuates keypresses based on messages received from the server. The client is a simple web ui, pictured above.
 
 ## Usage
 ### host
@@ -22,6 +24,8 @@ Root access is required for the script because of the keyboard module
 
 ### client
 After setting up the host, connect to the server using the same identifier as with the host. Then use the keypad to activate keypresses on the host/hosts. 
+
+If you don't want to setup your own server, I have a client/server combo running [here](https://1030321.xyz/remote-slide-changer/).
 
 ## Minimum installation
 
